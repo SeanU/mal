@@ -89,7 +89,7 @@ IMPLS = ada ada.2 awk bash basic c chuck clojure coffee common-lisp cpp crystal 
 	guile haskell haxe hy io java js julia kotlin livescript logo lua make mal \
 	matlab miniMAL nasm nim objc objpascal ocaml perl perl6 php picolisp plpgsql \
 	plsql powershell ps python r racket rexx rpython ruby rust scala scheme skew \
-	swift swift3 swift4 tcl ts vb vhdl vimscript wasm yorick
+	sml swift swift3 swift4 tcl ts vb vhdl vimscript wasm yorick
 
 EXTENSION = .mal
 
@@ -241,6 +241,7 @@ rust_STEP_TO_PROG =    rust/$($(1))
 scala_STEP_TO_PROG =   scala/target/scala-2.11/classes/$($(1)).class
 scheme_STEP_TO_PROG =  $(scheme_STEP_TO_PROG_$(scheme_MODE))
 skew_STEP_TO_PROG =    skew/$($(1)).js
+sml_STEP_TO_PROG =     sml/$($(1))
 swift_STEP_TO_PROG =   swift/$($(1))
 swift3_STEP_TO_PROG =  swift3/$($(1))
 swift4_STEP_TO_PROG =  swift4/$($(1))
