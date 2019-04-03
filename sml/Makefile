@@ -1,4 +1,4 @@
-SRCS = step0_repl.mlb 
+SRCS = step0_repl.mlb step1_read_print.mlb
 OTHER_SRCS = 
 BINS = $(SRCS:%.mlb=%)
 
