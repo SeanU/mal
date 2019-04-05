@@ -3,6 +3,7 @@ exception WrongType
 exception ArgumentCount
 exception NotFound
 exception NotAFunction
+exception MissingValue
 
 infix |>;
 fun (g |> f) = f g;

@@ -1,14 +1,20 @@
 datatype malval =
       Nil
+    | MalBoolean of bool
     | MalInteger of int
     | MalString  of string
     | MalSymbol  of string
     | MalList    of malval list
     | MalVector  of malval list
+    | MalMap     of (malval * malval) list
     | MalFunc    of malval list -> malval
 
 fun toMalVal s =
     let
+        fun toMalBoolean "true"  = SOME (MalBoolean true)
+          | toMalBoolean "false" = SOME (MalBoolean false)
+          | toMalBoolean _       = NONE
+
         val isDigit = Char.isDigit
         fun isNumeric s =
             case String.explode s of
@@ -36,6 +42,7 @@ fun toMalVal s =
     in
         Option.valOf (
             coalesce [
+                fn () => toMalBoolean s,
                 fn () => toMalInteger s,
                 fn () => toMalString s,
                 fn () => SOME (MalSymbol s)

@@ -101,29 +101,42 @@ fun tokenize reader =
 
 fun read_form tokens =
     let
-        fun accumulate rbracket valtype tokens acc =
+        fun accumulate rbracket makeval tokens acc =
             case tokens of
                   nil => raise Unbalanced
                 | token :: rest =>
                     if token = rbracket
-                    then (valtype (List.rev acc), rest)
+                    then (makeval (List.rev acc), rest)
                     else
                         let
                             val (form, rest) = read_form tokens
                         in
-                            accumulate rbracket valtype rest (form :: acc)
+                            accumulate rbracket makeval rest (form :: acc)
                         end
+
+        fun pairwise l =
+            let
+                fun helper (fst :: snd :: rest) acc = helper rest ((fst, snd) :: acc)
+                  | helper (fst :: nil) acc = raise MissingValue
+                  | helper nil acc = List.rev acc
+            in
+                helper l nil
+            end
 
         fun read_list tokens = accumulate ")" MalList tokens nil
 
         fun read_vector tokens = accumulate "]" MalVector tokens nil
 
+        fun read_map tokens = 
+            accumulate "}" (fn l => MalMap (pairwise l)) tokens nil
+            
         val read_atom = toMalVal
     in
         case tokens of
               nil           => (Nil, nil)
             | "("   :: rest => read_list rest
             | "["   :: rest => read_vector rest
+            | "{"   :: rest => read_map rest
             | token :: rest => (read_atom token, rest) 
     end
 
