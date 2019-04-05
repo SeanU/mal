@@ -1,11 +1,12 @@
 fun load () = (
     use "util.sml";
     use "types.sml";
+    use "environment.sml";
     use "reader.sml";
     use "printer.sml"
 )
 
 fun run () = (
     load ();
-    use "step1_read_print.sml"
+    use "step2_eval.sml"
 )

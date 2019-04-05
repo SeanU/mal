@@ -1,4 +1,8 @@
 exception Unbalanced
+exception WrongType
+exception ArgumentCount
+exception NotFound
+exception NotAFunction
 
 infix |>;
 fun (g |> f) = f g;

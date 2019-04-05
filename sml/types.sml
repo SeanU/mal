@@ -5,10 +5,20 @@ datatype malval =
     | MalSymbol  of string
     | MalList    of malval list
     | MalVector  of malval list
+    | MalFunc    of malval list -> malval
 
 fun toMalVal s =
     let
-        fun isNumeric s = List.all Char.isDigit (String.explode s) 
+        val isDigit = Char.isDigit
+        fun isNumeric s =
+            case String.explode s of
+                only :: nil   => isDigit only
+              | first :: rest => (
+                    (first = #"-" orelse isDigit first)
+                    andalso (List.all isDigit rest)
+                )
+              | _ => false
+
         fun toMalInteger s =
             if isNumeric s
             then SOME (MalInteger (Option.valOf (Int.fromString s)))

@@ -11,10 +11,14 @@ fun pr_str mv =
             end
     in
         case mv of
-            Nil          => "Nil"
-        | MalInteger i => Int.toString i
-        | MalString s  => "\"" ^ s ^ "\""
-        | MalSymbol s  => s
-        | MalList l    => pr_lst l "(" ")"
-        | MalVector l  => pr_lst l "[" "]"
+            Nil         => "Nil"
+        | MalInteger i  => 
+            if i >= 0 
+            then Int.toString i 
+            else "-" ^ (Int.toString (i * ~1)) 
+        | MalString s   => "\"" ^ s ^ "\""
+        | MalSymbol s   => s
+        | MalList l     => pr_lst l "(" ")"
+        | MalVector l   => pr_lst l "[" "]"
+        | MalFunc f     => "FUNCTION"
     end
