@@ -4,6 +4,7 @@ exception ArgumentCount
 exception NotFound
 exception NotAFunction
 exception MissingValue
+exception NotAList
 
 infix |>;
 fun (g |> f) = f g;
